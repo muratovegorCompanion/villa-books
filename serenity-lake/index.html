@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serenity Lake House Book</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#0e4a47;
+  --sea-deep:#0a3533;
+  --reef:#3f8f86;
+  --mist:#e6f1ee;
+  --ribbon:#f0a422;
+  --ribbon-ink:#7a4d00;
+  --ink:#13211f;
+  --ink-soft:#43524f;
+  --paper:#ffffff;
+  --line:#cfe0dc;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 17px/1.55 var(--body);font-feature-settings:"tnum" 0}
+::selection{background:var(--ribbon);color:var(--ink)}
+a{color:var(--sea);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--reef)}
+a:focus-visible{outline:2px solid var(--ribbon);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;letter-spacing:-0.02em;margin:0;text-wrap:balance}
+p{margin:0 0 .7em}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- pages ---------- */
+.page{scroll-margin-top:58px;background:var(--paper);max-width:820px;margin:0 auto 18px;padding:48px 56px 56px;position:relative}
+.page > h2{font-size:clamp(34px,6vw,52px);font-weight:800;color:var(--sea);margin-bottom:6px}
+.lede{color:var(--ink-soft);font-size:18px;max-width:58ch;margin-bottom:28px}
+
+/* ---------- cover ---------- */
+.cover{background:var(--sea);color:#fff;padding:0;overflow:hidden;min-height:min(100svh,1100px);display:flex;flex-direction:column}
+.cover-top{padding:56px 56px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;font-size:15px;letter-spacing:.02em;color:#cfe7e2}
+.cover h1{font-size:clamp(64px,15vw,150px);font-weight:800;letter-spacing:-0.045em;line-height:.86;padding:0 48px;margin-top:auto;color:#fff}
+.cover h1 span{display:block;color:var(--ribbon)}
+.cover-sub{padding:22px 56px 0;font-size:20px;max-width:30ch;color:#e3f1ee}
+.cover-art{margin-top:40px;display:block;width:100%;height:auto}
+
+.qr-card{display:none;align-items:center;gap:5mm;margin:6mm 18mm 0;background:#fff;color:var(--sea-deep);padding:4mm 5mm;border-radius:3px;width:max-content}
+.qr-card .qr{width:26mm;height:26mm;display:block}
+.qr-card p{margin:0;font-weight:600;font-size:11pt;line-height:1.3}
+.qr-card small{font-weight:400;font-size:9.5pt;color:var(--ink-soft)}
+@media print{.qr-card.print-only{display:flex}}
+
+/* ---------- section nav (web) ---------- */
+.toc{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--mist) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;margin:0 auto;padding:10px 16px;display:flex;gap:6px;overflow-x:auto;max-width:820px;scrollbar-width:none}
+.toc ul::-webkit-scrollbar{display:none}
+.toc a{display:block;white-space:nowrap;padding:7px 13px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;color:var(--sea);background:#fff;border:1px solid var(--line)}
+.toc a:hover{border-color:var(--reef)}
+
+/* ---------- essentials ---------- */
+.essentials{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:2px solid var(--sea)}
+.ess{padding:18px 18px 18px 0;border-bottom:1px solid var(--line)}
+.ess:nth-child(odd){padding-right:24px;border-right:1px solid var(--line)}
+.ess:nth-child(even){padding-left:24px}
+.ess dt{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--reef);margin-bottom:4px}
+.ess dd{margin:0;font-family:var(--display);font-size:26px;font-weight:700;line-height:1.15;color:var(--ink)}
+.ess dd small{display:block;font-family:var(--body);font-size:15px;font-weight:400;color:var(--ink-soft);margin-top:4px;line-height:1.4}
+.fill{display:inline-block;min-width:9ch;border-bottom:1.5px dashed var(--reef);color:var(--ink-soft)}
+.ess.wifi ~ .ess:nth-child(even){padding:18px 24px 18px 0;border-right:1px solid var(--line)}
+.ess.wifi ~ .ess:nth-child(odd){padding:18px 18px 18px 24px;border-right:0}
+.wifi{grid-column:1 / -1;border-right:0 !important;padding-right:0 !important;display:flex;gap:40px;flex-wrap:wrap}
+.wifi > div{flex:1 1 220px}
+
+.welcome{font-size:19px;max-width:60ch}
+.sign{font-family:var(--display);font-weight:700;color:var(--sea);font-size:22px;margin-top:10px}
+
+/* ---------- house notes ---------- */
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 40px}
+.note h3{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.note p{color:var(--ink-soft);margin:0}
+.note strong{color:var(--ink)}
+
+/* ---------- callout ---------- */
+.callout{break-inside:avoid;margin-top:32px;background:var(--mist);padding:22px 26px;border-radius:4px}
+.callout h3{font-size:20px;color:var(--sea);margin-bottom:8px}
+.callout ol{margin:0;padding-left:1.2em}
+.callout li{margin:.25em 0}
+.callout.ribbon{background:#fff4dc}
+.callout.ribbon h3{color:var(--ribbon-ink)}
+
+/* ---------- timetable: the signature ---------- */
+.timetable{list-style:none;margin:0;padding:0;border-top:2px solid var(--sea)}
+.timetable li{display:grid;grid-template-columns:116px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.when{white-space:nowrap;font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--sea);font-variant-numeric:tabular-nums;letter-spacing:-0.03em}
+.when small{display:block;font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--reef);margin-top:5px}
+.when.walk{color:var(--reef)}
+.what h3{font-size:21px;font-weight:700;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.what h3 .tag{font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink-soft);letter-spacing:.01em}
+.what p{margin:4px 0 0;color:var(--ink-soft)}
+.fav{display:inline-block;font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--ribbon);color:var(--ink);padding:3px 8px 2px;border-radius:2px}
+.group{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:40px 0 10px}
+.group:first-of-type{margin-top:0}
+
+.timetable li:has(.shot){grid-template-columns:116px 1fr 190px}
+.shot{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block;background:var(--mist)}
+.credits{font-size:12px;color:#a9cfc8;margin-top:10px;line-height:1.5}
+.credits a{color:#cfe7e2}
+
+/* ---------- contacts ---------- */
+.contacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:2px solid var(--sea)}
+.contact{padding:16px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.contact h3{font-size:19px;font-weight:700}
+.contact p{margin:3px 0 0;color:var(--ink-soft);font-size:16px}
+.phone{font-family:var(--display);font-size:24px;font-weight:700;color:var(--sea);text-decoration:none;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;display:inline-block;margin-top:2px}
+.contact.big .phone{font-size:40px}
+
+/* ---------- closing ---------- */
+.closing{background:var(--sea);color:#fff}
+.closing h2{color:#fff !important}
+.closing p{color:#d7ebe7;font-size:19px;max-width:52ch}
+.closing .sign{color:var(--ribbon)}
+.checked{font-size:14px;color:#a9cfc8;margin-top:36px}
+
+/* ---------- mobile ---------- */
+@media (max-width:640px){
+  body{font-size:16px}
+  .page{padding:32px 16px 40px;margin-bottom:10px}
+  .cover{min-height:92svh;padding:0}
+  .cover-top{padding:28px 16px 0;font-size:13px}
+  .cover h1{padding:0 12px}
+  .cover-sub{padding:18px 16px 0;font-size:18px}
+  .essentials{grid-template-columns:1fr}
+  .ess,.ess:nth-child(odd),.ess:nth-child(even),.ess.wifi ~ .ess:nth-child(even),.ess.wifi ~ .ess:nth-child(odd){padding:16px 0;border-right:0}
+  .notes{grid-template-columns:1fr;gap:22px}
+  .timetable li{grid-template-columns:72px 1fr;gap:14px}
+  .timetable li:has(.shot){grid-template-columns:72px 1fr}
+  .shot{grid-column:2;margin-top:2px}
+  .when{font-size:23px}
+  .when small{white-space:normal;font-size:11px}
+  .contacts{grid-template-columns:1fr}
+  .contact.big .phone{font-size:34px}
+  .callout{padding:18px 16px}
+}
+
+/* ---------- print: A4 booklet ---------- */
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff;font-size:11.5pt}
+  .toc{display:none}
+  .page{max-width:none;width:210mm;min-height:297mm;margin:0;padding:14mm 18mm 10mm;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page:last-child{break-after:auto}
+  .cover{min-height:297mm;height:297mm;padding:0}
+  .cover-top{padding:18mm 18mm 0}
+  .cover h1{padding:0 15mm;font-size:118pt}
+  .cover-sub{padding:8mm 18mm 0}
+  .page > h2{font-size:36pt}
+  .lede{font-size:12.5pt;margin-bottom:8mm}
+  .when{font-size:24pt}
+  .timetable li{grid-template-columns:30mm 1fr;padding:3.2mm 0}
+  .timetable li:has(.shot){grid-template-columns:24mm 1fr 34mm;padding:1.8mm 0}
+  #beaches{padding-bottom:8mm}
+  #beaches .callout{margin-top:5mm !important;padding:3.5mm 5mm;font-size:10.5pt}
+  #beaches .callout h3{font-size:13pt;margin-bottom:2mm}
+  #beaches .what p{font-size:10.5pt}
+  #beaches .lede{margin-bottom:5mm}
+  .credits{font-size:8pt}
+  .what h3{font-size:15pt}
+  .what p{font-size:11.5pt}
+  .note h3{font-size:16pt}
+  .note p,.contact p,.callout{font-size:11.5pt}
+  .welcome{font-size:14pt}
+  .group{margin-top:7mm}
+  #eat .timetable li{padding:1.4mm 0}
+  #eat .timetable li:has(.shot){padding:1.6mm 0}
+  #trips .timetable li{padding:2mm 0}
+  #trips .timetable li:has(.shot){padding:1.6mm 0}
+  #trips .callout{margin-top:5mm !important;padding:3.5mm 5mm;font-size:10.5pt}
+  #trips .callout h3{font-size:13pt;margin-bottom:1.5mm}
+  #trips .group{margin-top:5mm}
+  #trips .lede{margin-bottom:4mm}
+  #eat .what p{margin-top:1px}
+  #eat .lede{margin-bottom:5mm}
+  a{color:inherit;text-decoration:none}
+  .web-only{display:none}
+}
+.print-only{display:none}
+@media print{.print-only{display:block}}
+
+/* ---------- Serenity Lake additions ---------- */
+.todo{display:inline-block;background:#fff4dc;color:var(--ribbon-ink);border:1.5px dashed var(--ribbon);border-radius:3px;padding:1px 7px;font-family:var(--body);font-size:15px;font-weight:600;line-height:1.4;letter-spacing:0}
+.ess dd .todo{font-size:15px}
+.map{font-size:14px;font-weight:600;white-space:nowrap}
+@media print{.map{display:none}.todo{border-color:var(--ribbon-ink)}}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover" id="top">
+  <div class="cover-top">
+    <span>Near Thong Sala · Koh Phangan</span>
+    <span>House book</span>
+  </div>
+  <h1>Serenity<span>Lake</span></h1>
+  <p class="cover-sub">Everything about the two houses, and the best of the south and west of the island.</p>
+  <svg class="cover-art" viewBox="0 0 820 300" aria-hidden="true" preserveAspectRatio="none">
+    <path d="M0 150 L120 70 L210 130 L330 40 L450 120 L560 60 L690 135 L820 80 V300 H0Z" fill="#0a3533"/>
+    <path d="M0 190 C160 175 300 200 430 188 S690 172 820 186 V300 H0Z" fill="#3f8f86" opacity=".55"/>
+    <path d="M0 225 C180 215 320 232 470 222 S710 212 820 222 V300 H0Z" fill="#e6f1ee" opacity=".18"/>
+    <path d="M90 255 H300 M380 262 H560 M620 250 H760" stroke="#e6f1ee" stroke-width="2" opacity=".25"/>
+    <circle cx="560" cy="150" r="24" fill="#f0a422"/>
+  </svg>
+</section>
+
+<nav class="toc web-only" aria-label="Sections">
+  <ul>
+    <li><a href="#welcome">Essentials</a></li>
+    <li><a href="#house">The house</a></li>
+    <li><a href="#around">Getting around</a></li>
+    <li><a href="#beaches">Beaches</a></li>
+    <li><a href="#eat">Eat</a></li>
+    <li><a href="#explore">Markets &amp; nature</a></li>
+    <li><a href="#trips">Further out</a></li>
+    <li><a href="#help">Help</a></li>
+  </ul>
+</nav>
+
+<!-- ============ WELCOME + ESSENTIALS ============ -->
+<section class="page" id="welcome">
+  <h2>Welcome</h2>
+  <p class="welcome">We're happy you're here. The villa is all yours: two houses on one private plot, four bedrooms, a pool in the garden and a terrace over the lake, five minutes from Thong Sala. If anything is missing or broken, message us in the Airbnb app.</p>
+  <p class="sign">— <span class="todo">TODO: host name to sign with</span></p>
+
+  <dl class="essentials" style="margin-top:32px">
+    <div class="ess wifi">
+      <div><dt>Wi‑Fi network</dt><dd><span class="todo">TODO: network name</span><small>500 Mbit/s fibre, all over the property.</small></dd></div>
+      <div><dt>Password</dt><dd><span class="todo">TODO: Wi‑Fi password</span></dd></div>
+    </div>
+    <div class="ess"><dt>Check-in</dt><dd class="num"><span class="todo">TODO: check-in time</span><small>Self check-in with a key box.</small></dd></div>
+    <div class="ess"><dt>Check-out</dt><dd class="num"><span class="todo">TODO: check-out time</span><small>Early arrival or late departure? We can keep your bags.</small></dd></div>
+    <div class="ess"><dt>Host</dt><dd>Airbnb app<small>The quickest way to reach us.</small></dd></div>
+    <div class="ess"><dt>Ambulance</dt><dd><a class="phone" href="tel:1669">1669</a><small>More numbers on the last page.</small></dd></div>
+  </dl>
+</section>
+
+<!-- ============ THE HOUSE ============ -->
+<section class="page" id="house">
+  <h2>The house</h2>
+  <p class="lede">Two houses on one fenced plot, everything just for you.</p>
+
+  <div class="notes">
+    <div class="note"><h3>Main house</h3><p>Two bedrooms with king beds, the full kitchen, the living room, a bathroom and the terrace with the lake view. The sunrise comes up over the water.</p></div>
+    <div class="note"><h3>Garden house</h3><p>Two bedrooms (king and queen), a small kitchen, a bathroom and a door straight out to the pool.</p></div>
+    <div class="note"><h3>Pool</h3><p>Private, in the middle of the tropical garden. <span class="todo">TODO: pool hours / rules, if any</span></p></div>
+    <div class="note"><h3>The lake</h3><p>A path and a small deck lead down to the water. <strong>Please keep children in sight at all times</strong> near the lake and the pool.</p></div>
+    <div class="note"><h3>Air conditioning</h3><p>In every room. Please switch it off when you go out.</p></div>
+    <div class="note"><h3>Wi‑Fi &amp; work</h3><p>500 Mbit/s fibre everywhere, three desks inside and a table outside. Two Smart TVs with YouTube and Netflix.</p></div>
+    <div class="note"><h3>Laundry</h3><p>A washing machine and a dryer for your use.</p></div>
+    <div class="note"><h3>BBQ &amp; outdoor living</h3><p>A covered outdoor lounge and dining area by the lake, and a charcoal grill with skewers.</p></div>
+    <div class="note"><h3>Towels</h3><p>Villa towels stay in the house. <strong>Please don't take them to the beach or the pool</strong> — bring your own beach towels.</p></div>
+    <div class="note"><h3>Rubbish</h3><p>Take it out regularly, in the black bags, so it doesn't attract insects. <span class="todo">TODO: where the bins are</span></p></div>
+    <div class="note"><h3>Drinking water</h3><p><span class="todo">TODO: is the tap water drinkable / is drinking water provided?</span> Bottles are sold at every 7‑Eleven.</p></div>
+    <div class="note"><h3>Nature</h3><p>Geckos and insects are part of island life — they're harmless. There is building work in places on the island, so you may hear it during the day.</p></div>
+    <div class="note"><h3>Garden &amp; pool care</h3><p>Pool, garden and maintenance visits happen in the daytime, 9:00–17:00. If you'd rather not be disturbed on a certain day, tell us in advance.</p></div>
+    <div class="note"><h3>Extras</h3><p>A folding high chair on request, and we can recommend a babysitter. Parking for cars and scooters.</p></div>
+  </div>
+
+  <div class="callout ribbon">
+    <h3>House rules</h3>
+    <p style="margin:0">It's a quiet residential area: no parties, events or loud music. Smoking only outside, never in the houses. Breakages and missing items are charged at replacement cost. Thai law requires us to register every guest (form TM30), so please send copies of all passports before you arrive.</p>
+  </div>
+
+  <div class="callout">
+    <h3>On the day you leave</h3>
+    <ol>
+      <li>Be out by <span class="todo">TODO: check-out time</span>.</li>
+      <li>Take the rubbish out in the black bags.</li>
+      <li>Close the windows, switch off the air conditioning and lock both houses.</li>
+      <li><span class="todo">TODO: what to do with the key (key box?)</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ GETTING AROUND ============ -->
+<section class="page" id="around">
+  <h2>Getting around</h2>
+  <p class="lede">There's no Grab or Bolt on Koh Phangan, and taxis are expensive. Most guests rent a scooter or a car. The villa is about five minutes from Thong Sala, the island's main town and ferry pier.</p>
+
+  <div class="contacts">
+    <div class="contact">
+      <h3>Taxi &amp; driver</h3>
+      <p><span class="todo">TODO: driver / taxi contact for the Thong Sala area</span></p>
+    </div>
+    <div class="contact">
+      <h3>Scooter &amp; car rental</h3>
+      <p><span class="todo">TODO: rental contact that delivers to the villa</span></p>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:32px">
+    <div class="note"><h3>Telling a driver where to go</h3><p><span class="todo">TODO: what to say to a driver, landmark, map pin</span></p></div>
+    <div class="note"><h3>Finding the villa</h3><p><span class="todo">TODO: directions from Thong Sala pier (video or map link)</span></p></div>
+    <div class="note"><h3>To the pier</h3><p>Thong Sala pier is about five minutes away. <span class="todo">TODO: usual taxi price to the pier</span></p></div>
+    <div class="note"><h3>On a scooter</h3><p>Wear a helmet — that's what the police check. Roads to the east and north coast are steep in places; take a car if you're not confident on hills.</p></div>
+    <div class="note"><h3>Parking</h3><p>On the property, for cars and scooters.</p></div>
+  </div>
+</section>
+
+<!-- ============ BEACHES ============ -->
+<section class="page" id="beaches">
+  <h2>Beaches</h2>
+  <p class="lede">Approximate times from the villa by scooter or car. The south coast near Thong Sala is shallow; the clear water and sunsets are on the west coast, 15–25 minutes away.</p>
+
+  <ul class="timetable">
+    <li><div class="when num">~10<small>min</small></div><div class="what"><h3>Ban Tai &amp; Ban Khai <span class="tag">south coast</span></h3><p>The nearest beaches: a long, quiet stretch with coconut palms and a few beach bars. Very shallow — at low tide you can't really swim, so go at high tide or come for a walk and dinner at Fisherman's. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Ban+Tai+Beach+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~20<small>min</small></div><div class="what"><h3>Haad Yao <span class="fav">our pick</span></h3><p>A kilometre of sand on the west coast, a reef for snorkelling, restaurants and bars along the beach and a proper sunset every evening. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Haad+Yao+Beach+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~25<small>min</small></div><div class="what"><h3>Haad Salad <span class="tag">west coast</span></h3><p>Next to Haad Yao but smaller and quieter: fine white sand, clear water and coral a few metres off the beach. Calm and easy with kids. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Haad+Salad+Beach+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~20<small>min</small></div><div class="what"><h3>Secret Beach · Haad Son <span class="tag">sunset</span></h3><p>A small west-facing cove between Haad Yao and Zen Beach. Short, steep road down; you walk through Haad Son Resort. Drinks at Koh Raham on the rocks. It fills up — come early. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Secret+Beach+Haad+Son+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~20<small>min</small></div><div class="what"><h3>Zen Beach · Sri Thanu <span class="fav">Friday sunset</span></h3><p>Every Friday people gather on the sand for a drum jam at sunset — drums, guitars, dancing. Come by 17:30 for a spot and parking. Shallow water; watch for rocks and sea urchins. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Zen+Beach+Sri+Thanu+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~25<small>min</small></div><div class="what"><h3>Haad Rin <span class="tag">south-east</span></h3><p>Long, soft white sand and clear water, with more cafés and shops than anywhere else. Busy around the Full Moon Party. Watch for rip currents on Haad Rin Nok. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Haad+Rin+Beach+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+</section>
+
+<!-- ============ EAT ============ -->
+<section class="page" id="eat">
+  <h2>Eat</h2>
+  <p class="lede">Thong Sala and Ban Tai are 5–10 minutes away and cover most days. ฿ cheap · ฿฿ mid · ฿฿฿ special. Hours change on the island — check the map before a special trip.</p>
+
+  <p class="group">Breakfast &amp; coffee</p>
+  <ul class="timetable">
+    <li><div class="when num">฿–฿฿<small>Thong Sala</small></div><div class="what"><h3>Nira's Home Bakery <span class="tag">from 7:00</span></h3><p>A classic since 1985, right by the pier: fresh bread, breakfasts, pancakes, air‑con inside. Handy before an early boat. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Nira%27s+Home+Bakery+Thong+Sala">Map</a></p></div></li>
+    <li><div class="when num">฿฿<small>Ban Tai</small></div><div class="what"><h3>Bubba's Coffee <span class="tag">from 7:00</span></h3><p>All-day breakfast and brunch, very good coffee and avocado toast, vegan and gluten-free options. Gets packed around noon. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Bubba%27s+Coffee+Ban+Tai+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿<small>Ban Tai</small></div><div class="what"><h3>Hundred Islands Coffee Bar</h3><p>Small, cool and quiet: famous iced coffee, cakes and waffles. Easy to drive past on the main road. Usually closed on Mondays. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Hundred+Islands+Coffee+Bar+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿<small>~20 min</small></div><div class="what"><h3>Pura Vida, Haad Yao</h3><p>Pancakes, acai bowls and avocado toast before a beach day on the west coast. Has a high chair. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Pura+Vida+Haad+Yao+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+
+  <p class="group">Thai &amp; everyday</p>
+  <ul class="timetable">
+    <li><div class="when num">฿–฿฿<small>Ban Tai</small></div><div class="what"><h3>Ban Tai Pier Restaurant &amp; Bar</h3><p>Family run, Thai and Western, big portions at fair prices. Try the green curry and the coconut ice cream. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Ban+Tai+Pier+Restaurant+Bar+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿<small>Thong Sala</small></div><div class="what"><h3>Phangan Food Court</h3><p>Pizza, burgers, bowls, kebabs and Thai under one roof — easy when everyone wants something different. 10:30–23:00. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Phangan+Food+Court+Thong+Sala">Map</a></p></div></li>
+    <li><div class="when num">฿<small>Ban Tai</small></div><div class="what"><h3>Night Market Café Vintage</h3><p>Food stalls from around the world, a playground and live music in the evenings. Good for families. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Night+Market+Cafe+Vintage+Ban+Tai+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿<small>Ban Tai</small></div><div class="what"><h3>Namaskar</h3><p>Indian, Nepali and Tibetan food, and a good lassi. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Namaskar+Indian+Restaurant+Ban+Tai+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+
+  <p class="group">Dinner out</p>
+  <ul class="timetable">
+    <li><div class="when num">฿฿฿<small>Ban Tai</small></div><div class="what"><h3>Fisherman's Restaurant <span class="fav">special night</span></h3><p>Candle-lit tables on the beach, seafood and crab curry. Book ahead for dinner. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Fisherman%27s+Restaurant+Ban+Tai+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿฿฿<small>Thong Sala</small></div><div class="what"><h3>Beachlounge</h3><p>An old wooden house on the beach east of the pier: Thai, seafood and fusion, the best wine list on the island, good cocktails. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Beachlounge+Thong+Sala+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">฿฿฿<small>~20 min</small></div><div class="what"><h3>L'Alcove, Hin Kong</h3><p>French food, tapas and good wine at one of the best sunset spots on the island. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=L%27Alcove+Hin+Kong+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+</section>
+
+<!-- ============ MARKETS & NATURE ============ -->
+<section class="page" id="explore">
+  <h2>Markets &amp; nature</h2>
+
+  <p class="group">Markets</p>
+  <ul class="timetable">
+    <li><div class="when num">Sat<small>from 16:00</small></div><div class="what"><h3>Walking Street, Thong Sala <span class="fav">don't miss</span></h3><p>The biggest market on the island, in front of the pier: street food, clothes, crafts, music. Busiest 19:00–21:00 — go early for the best food. Cash only. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Thong+Sala+Saturday+Walking+Street">Map</a></p></div></li>
+    <li><div class="when num">Daily<small>from ~17:00</small></div><div class="what"><h3>Phantip Night Food Market</h3><p>Street food every evening in the middle of Thong Sala: a full meal for 40–150 ฿. Cash only. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Phantip+Night+Market+Thong+Sala">Map</a></p></div></li>
+    <li><div class="when num">Sun<small>~25 min</small></div><div class="what"><h3>Chaloklum Sunday market</h3><p>A fishing-village market on the north coast, if you fancy an evening trip. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Chaloklum+Sunday+Walking+Street">Map</a></p></div></li>
+  </ul>
+
+  <div class="callout" style="margin-top:28px">
+    <h3>Shopping</h3>
+    <p style="margin:0">Everything is in Thong Sala, about five minutes away: <a href="https://www.google.com/maps/search/?api=1&amp;query=Makro+Koh+Phangan">Makro</a> (wholesale, big packs), <a href="https://www.google.com/maps/search/?api=1&amp;query=Lotus%27s+Koh+Phangan">Lotus's</a> and <a href="https://www.google.com/maps/search/?api=1&amp;query=Big+C+Koh+Phangan">Big C</a> (around 8:00–22:00) for groceries and home things, and a 7‑Eleven with an ATM on almost every corner. Pharmacies and a Watsons are in the centre of Thong Sala, usually open 8:00–22:00 — 24‑hour pharmacies are rare.</p>
+  </div>
+
+  <p class="group" style="margin-top:36px">Views &amp; waterfalls</p>
+  <ul class="timetable">
+    <li><div class="when num">~10<small>min</small></div><div class="what"><h3>Wat Khao Tham <span class="tag">above Ban Tai</span></h3><p>A hillside monastery with a view over the south coast to Koh Samui — lovely at sunset. Free; short steep walk from the parking. It's a working temple: cover shoulders and knees, shoes off inside. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Wat+Khao+Tham+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">15–20<small>min</small></div><div class="what"><h3>Phaeng Waterfall &amp; Domsila viewpoint</h3><p>A national-park walk inland from Thong Sala: the waterfall, then 10–15 minutes uphill to the viewpoint. About 100 ฿, cash. Best after rain (October–December); weak in the dry season. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Phaeng+Waterfall+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~15<small>min</small></div><div class="what"><h3>Amsterdam Bar <span class="tag">sunset drinks</span></h3><p>On the hill on the west side, with a pool and an open view of the sunset. Open from noon; packed around Full Moon. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Amsterdam+Bar+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">2–3<small>hours</small></div><div class="what"><h3>Khao Ra, the highest peak</h3><p>A hard jungle climb — better with a guide. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Khao+Ra+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+
+  <p class="group" style="margin-top:36px">Gym &amp; yoga</p>
+  <ul class="timetable">
+    <li><div class="when num">~5<small>min</small></div><div class="what"><h3>Phangan Muay Thai &amp; Fitness <span class="tag">Thong Sala</span></h3><p>The biggest gym on the island: half weights, half Muay Thai. No air‑con. Mon–Sat 7:00–20:30, Sun 12:00–18:00. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Phangan+Muay+Thai+and+Fitness+Thong+Sala">Map</a></p></div></li>
+    <li><div class="when num">~10<small>min</small></div><div class="what"><h3>Podium Gym <span class="tag">Ban Tai road</span></h3><p>Smaller, clean, air‑conditioned, good equipment. 7:00–22:00 daily; day passes available. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Podium+Gym+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~10<small>min</small></div><div class="what"><h3>Diamond Muay Thai <span class="tag">Ban Tai</span></h3><p>Proper Muay Thai coaching, morning and late-afternoon classes six days a week. Beginners and walk-ins welcome. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Diamond+Muay+Thai+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~20<small>min</small></div><div class="what"><h3>Yoga in Sri Thanu</h3><p>The island's yoga village on the west coast: Samma Karuna or Orion Healing, drop-in classes. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Samma+Karuna+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+</section>
+
+<!-- ============ TRIPS ============ -->
+<section class="page" id="trips">
+  <h2>Further out</h2>
+
+  <p class="group">Day trips on the island</p>
+  <ul class="timetable">
+    <li><div class="when num">35–45<small>min</small></div><div class="what"><h3>Thong Nai Pan Noi &amp; Yai <span class="tag">north-east</span></h3><p>Two of the most beautiful bays on the island. The road is paved but steep with tight bends — go by car if you're not confident on a scooter, and stop at the viewpoint on the way down. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Thong+Nai+Pan+Noi+Beach+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~40<small>min</small></div><div class="what"><h3>Than Sadet Waterfall <span class="tag">east coast</span></h3><p>Cascades and rock pools once visited by Thai kings, inside the national park. Steep road; go in the morning with a full tank. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Than+Sadet+Waterfall+Koh+Phangan">Map</a></p></div></li>
+    <li><div class="when num">~35<small>min</small></div><div class="what"><h3>Mae Haad &amp; Koh Ma <span class="tag">north-west</span></h3><p>The best snorkelling on the island. At low tide you can walk the sandbar to the little island; snorkel at high tide. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Koh+Ma+Koh+Phangan">Map</a></p></div></li>
+  </ul>
+
+  <div class="callout ribbon" style="margin-top:28px">
+    <h3>Full Moon Party</h3>
+    <p style="margin:0">Once a month at Haad Rin, about 25 minutes away. The party stays on that beach — parties at the villa are not allowed. Taxis at night are scarce and expensive, so sort out your ride first, and please don't ride a scooter after drinking. Fluorescent paint doesn't wash out of sheets or towels: rinse it off before you come inside.</p>
+  </div>
+
+  <p class="group">Boat trips</p>
+  <ul class="timetable">
+    <li><div class="when num">full<small>day</small></div><div class="what"><h3>Ang Thong Marine Park</h3><p>Kayaks, snorkelling and the Emerald Lake, about 2,200 ฿ with lunch. Closed roughly from 1 November to mid‑December.</p></div></li>
+    <li><div class="when num">~8<small>hours</small></div><div class="what"><h3>Koh Tao &amp; Nang Yuan</h3><p>A full snorkelling day with lunch. Boats leave from Thong Sala, five minutes from the villa.</p></div></li>
+  </ul>
+</section>
+
+<!-- ============ HELP ============ -->
+<section class="page" id="help">
+  <h2>If you need help</h2>
+  <p class="lede">For anything about the house, message us in the Airbnb app first.</p>
+
+  <div class="contacts">
+    <div class="contact big"><h3>Ambulance</h3><a class="phone" href="tel:1669">1669</a></div>
+    <div class="contact big"><h3>Tourist police</h3><a class="phone" href="tel:1155">1155</a><p>English spoken</p></div>
+    <div class="contact"><h3>Police</h3><a class="phone" href="tel:191">191</a></div>
+    <div class="contact"><h3>Koh Phangan Hospital</h3><a class="phone" href="tel:+6677377034">077 377 034</a><p>Public hospital, near Thong Sala. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Koh+Phangan+Hospital">Map</a></p></div>
+    <div class="contact"><h3>First Western Hospital</h3><p>Private, in Thong Sala, a few minutes away. Lab tests, outpatient care, transfers to Samui or Bangkok for serious cases. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=First+Western+Hospital+Koh+Phangan">Map</a></p></div>
+    <div class="contact"><h3>Phangan International Hospital</h3><p>Private, in Thong Sala, English-speaking staff. <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Phangan+International+Hospital">Map</a></p></div>
+    <div class="contact"><h3>Pharmacies</h3><p>Several in the centre of Thong Sala, usually 8:00–22:00.</p></div>
+    <div class="contact"><h3>Host on the phone</h3><p><span class="todo">TODO: emergency contact for the host, if any</span></p></div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="page closing" id="bye">
+  <h2>Thank you for staying</h2>
+  <p>We hope the lake and the island were good to you. If you have a minute after you leave, a review on Airbnb helps us more than anything.</p>
+  <p class="sign">— <span class="todo">TODO: host name</span></p>
+  <p class="checked">Places checked in October 2026. Things change on the island — if something here is out of date, tell us.</p>
+</section>
+
+</body>
+</html>
